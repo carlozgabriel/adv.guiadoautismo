@@ -134,7 +134,7 @@ export const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({ onClose }) => 
           </h2>
           
           <p className="text-lg text-gray-600 mb-10 max-w-xl mx-auto leading-relaxed">
-            Com base nas suas respostas, identificamos que o <strong>Guia do Autismo</strong> é a ferramenta ideal para superar os desafios de {answers[2]?.toLowerCase() || 'comportamento'} e garantir os direitos da sua criança em Portugal.
+            Com base nas suas respostas, identificamos que o <strong>Guia do Autismo</strong> é a ferramenta ideal para superar os desafios de {answers[2]?.replace(/^[^\p{L}\p{N}\s]+/u, '').trim().toLowerCase() || 'comportamento e crises'} e garantir os direitos da sua criança em Portugal.
           </p>
 
           {/* Imagem do Produto Mockup */}
@@ -176,6 +176,14 @@ export const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({ onClose }) => 
                 INICIAR AGORA <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </span>
             </a>
+
+            {/* Métodos de Pagamento em Portugal */}
+            <div className="mt-4 pt-4 border-t border-blue-100/60 flex flex-wrap items-center justify-center gap-2 text-xs font-bold text-gray-500">
+              <span>Disponível em Portugal:</span>
+              <span className="px-2.5 py-1 bg-white text-gray-800 rounded-lg border border-gray-200 text-[11px] font-black">MB WAY</span>
+              <span className="px-2.5 py-1 bg-white text-gray-800 rounded-lg border border-gray-200 text-[11px] font-black">Multibanco</span>
+              <span className="px-2.5 py-1 bg-white text-gray-800 rounded-lg border border-gray-200 text-[11px] font-black">Cartão</span>
+            </div>
           </div>
 
           {/* Características do Livro */}

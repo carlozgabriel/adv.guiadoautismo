@@ -131,7 +131,7 @@ export const AdvertorialArticle: React.FC<AdvertorialArticleProps> = ({ onStartQ
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mt-12 mb-16 p-8 bg-white rounded-3xl text-center border-2 border-blue-600 shadow-xl relative overflow-hidden"
+          className="mt-12 mb-12 p-8 bg-white rounded-3xl text-center border-2 border-blue-600 shadow-xl relative overflow-hidden"
         >
           <div className="relative z-10">
             <p className="text-xs font-black text-blue-600 uppercase tracking-[0.2em] mb-4">Verificação de Elegibilidade</p>
@@ -141,7 +141,7 @@ export const AdvertorialArticle: React.FC<AdvertorialArticleProps> = ({ onStartQ
             </p>
             <button 
               onClick={onStartQuiz}
-              className="group bg-[#1e40af] hover:bg-[#1e3a8a] text-white px-8 py-5 rounded-2xl font-black text-xl transition-all flex flex-col items-center justify-center gap-1 mx-auto shadow-lg hover:scale-[1.02] active:scale-[0.98] w-full max-w-xs"
+              className="group bg-[#1e40af] hover:bg-[#1e3a8a] text-white px-8 py-5 rounded-2xl font-black text-xl transition-all flex flex-col items-center justify-center gap-1 mx-auto shadow-lg hover:scale-[1.02] active:scale-[0.98] w-full max-w-xs cursor-pointer"
             >
               <span className="text-xl tracking-widest uppercase">INICIAR</span>
               <span className="text-[10px] opacity-80 font-normal uppercase tracking-widest italic">Leva menos de 2 minutos →</span>
@@ -150,7 +150,79 @@ export const AdvertorialArticle: React.FC<AdvertorialArticleProps> = ({ onStartQ
           </div>
         </motion.div>
 
-        <p className="italic text-gray-500 text-sm border-t border-gray-100 pt-6">
+        {/* Secção de Comentários de Leitores */}
+        <div className="mt-12 pt-8 border-t border-gray-200">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-base font-black text-gray-900 uppercase tracking-wider flex items-center gap-2">
+              <MessageSquare size={18} className="text-red-600" /> Comentários de Leitores (14)
+            </h3>
+            <span className="text-xs text-gray-400 font-medium">Mais recentes</span>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                name: "Teresa Ribeiro",
+                location: "Porto",
+                time: "há 18 minutos",
+                text: "O capítulo sobre a gestão de crises na escola pública foi uma bênção cá em casa. Mostrei à professora do meu filho e finalmente conseguimos alinhar a rotina sem que ele entre em sobrecarga sensorial todos os dias. Vale cada cêntimo.",
+                likes: 34
+              },
+              {
+                name: "Gonçalo Mendes",
+                location: "Lisboa",
+                time: "há 42 minutos",
+                text: "Fiz as perguntas do artigo e decidi avançar logo a seguir. A linguagem é muito direta e sem rodeios teóricos desnecessários. Recomendo vivamente a todos os pais que se sentem perdidos.",
+                likes: 21
+              },
+              {
+                name: "Beatriz Antunes",
+                location: "Coimbra",
+                time: "há 1 hora",
+                text: "Como educadora de infância, este material deveria ser lido por quem lida com crianças no espectro. As adaptações sensoriais sugeridas funcionam mesmo na prática da sala de aula.",
+                likes: 47
+              },
+              {
+                name: "Marta Fonseca",
+                location: "Braga",
+                time: "há 2 horas",
+                text: "Consegui pagar comodamente por MB WAY e recebi o PDF no meu e-mail em menos de 2 minutos. Excelente iniciativa para nós famílias em Portugal.",
+                likes: 19
+              }
+            ].map((comment, i) => (
+              <div key={i} className="p-4 rounded-2xl bg-gray-50 border border-gray-100 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-red-100 text-red-700 font-black text-xs flex items-center justify-center">
+                      {comment.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-gray-900">
+                        {comment.name} <span className="text-[10px] text-gray-400 font-normal">• {comment.location}, PT</span>
+                      </p>
+                      <p className="text-[10px] text-gray-400">{comment.time}</p>
+                    </div>
+                  </div>
+                  <span className="text-xs text-gray-400 flex items-center gap-1 font-medium">👍 {comment.likes}</span>
+                </div>
+                <p className="text-xs md:text-sm text-gray-700 leading-relaxed pl-10">
+                  {comment.text}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <button
+              onClick={onStartQuiz}
+              className="text-blue-700 font-bold text-sm hover:underline cursor-pointer"
+            >
+              Fazer a verificação de elegibilidade e aceder ao guia →
+            </button>
+          </div>
+        </div>
+
+        <p className="italic text-gray-500 text-xs border-t border-gray-100 pt-6 mt-8">
           *Este conteúdo é suportado por parceiros de educação especial e faz parte de uma campanha de sensibilização para o autismo em Portugal (2026).
         </p>
       </div>
