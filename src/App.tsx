@@ -6,7 +6,6 @@ import { LandingPage } from './components/LandingPage';
 import { FunnelAnalyticsDashboard } from './components/FunnelAnalyticsDashboard';
 import { Footer } from './components/Footer';
 import { motion, AnimatePresence } from 'motion/react';
-import { Activity } from 'lucide-react';
 import { 
   updateUrlStep, 
   trackAdvertorialView, 
@@ -22,7 +21,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Suporte a acesso direto via URL: /trackeamento, ?view=trackeamento, ?step=lp ou #oferta
+  // Suporte a acesso interno restrito via URL: /trackeamento, ?view=trackeamento, ?step=lp ou #oferta
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.toLowerCase();
@@ -70,14 +69,6 @@ export default function App() {
         ofertaEl.scrollIntoView({ behavior: 'smooth' });
       }
     }, 450);
-  };
-
-  const handleOpenAnalytics = () => {
-    setView('analytics');
-    if (typeof window !== 'undefined') {
-      window.history.pushState({}, '', '/trackeamento');
-    }
-    scrollToTop();
   };
 
   const handleBackFromAnalytics = () => {
@@ -183,18 +174,6 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Floating telemetry launcher pill for quick access */}
-      {view !== 'analytics' && (
-        <button
-          onClick={handleOpenAnalytics}
-          className="fixed bottom-3 right-3 z-50 bg-slate-900/90 hover:bg-slate-900 text-slate-300 hover:text-emerald-400 border border-slate-700/80 px-3 py-1.5 rounded-full text-[11px] font-bold shadow-xl backdrop-blur-md flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 cursor-pointer"
-          title="Ver métricas e gráfico do funil (/trackeamento)"
-        >
-          <Activity size={13} className="text-emerald-400 animate-pulse" />
-          <span>/trackeamento</span>
-        </button>
-      )}
 
       {/* Global CSS for scrollbar and fonts */}
       <style>{`
