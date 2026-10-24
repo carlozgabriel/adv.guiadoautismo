@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronRight, ChevronLeft, CheckCircle2, AlertCircle, ArrowRight, X, Star, BookOpen, ShieldCheck, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { buildFunnelUrl } from '../utils/tracking';
+import { buildFunnelUrl, trackQuizStep, trackQuizComplete } from '../utils/tracking';
 
 interface Option {
   label: string;
@@ -58,9 +58,10 @@ const QUESTIONS: Question[] = [
 
 interface InteractiveQuizProps {
   onClose: () => void;
+  onComplete?: (category?: string) => void;
 }
 
-export const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({ onClose }) => {
+export const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({ onClose, onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
   const [isFinished, setIsFinished] = useState(false);
@@ -74,7 +75,14 @@ export const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({ onClose }) => 
 
   const handleConfirmFeedback = () => {
     if (selectedOption) {
-      const newAnswers = [...answers, selectedOption.label];
+      const stepNum = currentStep + 1;
+      const questionText = QUESTIONS[currentStep].text;
+      const answerLabel = selectedOption.label;
+      const newAnswers = [...answers, answerLabel];
+
+      // Rastreamento profissional da etapa do quiz
+      trackQuizStep(stepNum, questionText, answerLabel);
+
       setAnswers(newAnswers);
       setShowFeedback(false);
       setSelectedOption(null);
@@ -83,13 +91,13 @@ export const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({ onClose }) => 
         setCurrentStep(currentStep + 1);
       } else {
         setIsFinished(true);
-        if (typeof window !== 'undefined' && (window as any).fbq) {
-          (window as any).fbq('track', 'Lead', {
-            content_name: 'Guia do Autismo Quiz Concluído',
-            currency: 'EUR',
-            value: 16.00
-          });
-        }
+        // Rastreamento profissional de conclusão do quiz
+        trackQuizComplete({
+          perfil: newAnswers[0] || '',
+          idade: newAnswers[1] || '',
+          desafio: newAnswers[2] || '',
+          direitos: newAnswers[3] || ''
+        });
       }
     }
   };
@@ -166,16 +174,27 @@ export const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({ onClose }) => 
               <p className="text-blue-900/60 text-sm font-medium">Acesso digital imediato via Hotmart</p>
             </div>
 
-            <a 
-              href={buildFunnelUrl('https://guiadoautismopt.vercel.app/', '#oferta')} 
-              target="_self" 
-              rel="noopener noreferrer"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-black py-6 rounded-3xl text-2xl shadow-2xl shadow-green-900/40 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex flex-col items-center justify-center gap-1 group"
-            >
-              <span className="flex items-center gap-2 uppercase">
-                INICIAR AGORA <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </span>
-            </a>
+            {onComplete ? (
+              <button 
+                onClick={() => onComplete(answers[2] || answers[0])}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-black py-6 rounded-3xl text-2xl shadow-2xl shadow-green-900/40 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex flex-col items-center justify-center gap-1 group cursor-pointer"
+              >
+                <span className="flex items-center gap-2 uppercase">
+                  INICIAR AGORA <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </span>
+              </button>
+            ) : (
+              <a 
+                href="#oferta" 
+                target="_self" 
+                rel="noopener noreferrer"
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-black py-6 rounded-3xl text-2xl shadow-2xl shadow-green-900/40 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex flex-col items-center justify-center gap-1 group cursor-pointer"
+              >
+                <span className="flex items-center gap-2 uppercase">
+                  INICIAR AGORA <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </span>
+              </a>
+            )}
 
             {/* Métodos de Pagamento em Portugal */}
             <div className="mt-4 pt-4 border-t border-blue-100/60 flex flex-wrap items-center justify-center gap-2 text-xs font-bold text-gray-500">

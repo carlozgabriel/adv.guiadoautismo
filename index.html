@@ -54,37 +54,30 @@
 
     <!-- ========================================== -->
     <!-- RECUPERAÇÃO DE VENDAS: BACK-REDIRECT       -->
-    <!-- Se o visitante tentar sair, redireciona para a oferta de 16€ com UTMs preservadas -->
+    <!-- Se o visitante tentar sair, redireciona para a oferta de 16€ na LP unificada -->
     <!-- ========================================== -->
     <script>
       (function() {
-        function getBackRedirectUrl(baseUrl, hash) {
+        function getBackRedirectUrl() {
           try {
-            var url = new URL(baseUrl, window.location.origin);
-            var currentParams = new URLSearchParams(window.location.search);
-            currentParams.forEach(function(val, key) {
-              url.searchParams.set(key, val);
-            });
-            if (hash) {
-              url.hash = hash.startsWith('#') ? hash : '#' + hash;
-            }
+            var url = new URL(window.location.href);
+            url.searchParams.set('step', 'lp');
+            url.hash = '#oferta';
             return url.toString();
           } catch(e) {
-            var search = window.location.search;
-            var cleanHash = hash ? (hash.startsWith('#') ? hash : '#' + hash) : '';
-            return baseUrl.replace(/#.*$/, '') + search + cleanHash;
+            return window.location.pathname + '?step=lp#oferta';
           }
         }
-
-        var backRedirectTarget = getBackRedirectUrl('https://guiadoautismopt.vercel.app/', '#oferta');
 
         history.pushState({}, '', location.href);
         history.pushState({}, '', location.href);
 
         window.addEventListener('popstate', function() {
-          setTimeout(function() {
-            location.href = backRedirectTarget;
-          }, 1);
+          if (!window.location.search.includes('step=lp') && !window.location.hash.includes('oferta')) {
+            setTimeout(function() {
+              location.href = getBackRedirectUrl();
+            }, 1);
+          }
         });
       })();
     </script>
