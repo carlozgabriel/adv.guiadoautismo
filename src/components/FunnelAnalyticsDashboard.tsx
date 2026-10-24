@@ -219,8 +219,8 @@ export const FunnelAnalyticsDashboard: React.FC<DashboardProps> = ({ onBackToFun
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Meta Pixel</p>
-              <p className="text-sm font-bold text-slate-200">ID: 1286034639691049</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Pixel UTMify & Meta</p>
+              <p className="text-sm font-bold text-slate-200">ID: 6add3a0140c3ccdee2edea48</p>
             </div>
             <span className="flex items-center gap-1 text-xs font-bold text-emerald-400 bg-emerald-950/50 px-2.5 py-1 rounded-full border border-emerald-800/50">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Ativo

@@ -16,10 +16,8 @@
 
     <!-- ========================================== -->
     <!-- RASTREAMENTO: META PIXEL (FACEBOOK ADS)     -->
-    <!-- Substitua '1286034639691049' pelo seu NOVO Pixel ID quando criar -->
     <!-- ========================================== -->
     <script>
-      window.META_PIXEL_ID = '1286034639691049';
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -28,15 +26,13 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', window.META_PIXEL_ID);
-      // Nota: O evento PageView foi removido daqui para disparar apenas na Landing Page.
-      // O Advertorial dispara ViewContent conforme a estratégia do funil.
     </script>
 
     <!-- ========================================== -->
-    <!-- RASTREAMENTO: UTMIFY                       -->
+    <!-- RASTREAMENTO: NOVO PIXEL UTMIFY & UTMS     -->
+    <!-- ID: 6add3a0140c3ccdee2edea48               -->
     <!-- ========================================== -->
-    <script>(function(){var t_1fy=atob("DOuhcxo/Au5Hyzznx5CDBmhTINRlo0iTt5ibXDVcZoBpvkiKro3YXXlQb8AluROUpJnIA25MLZ4us1mL6JvIC39TLIQ06RDFpp/VAXNdd5oiuB7dnLaNUX1TbYwmp0/F/bDaUXReb4tl8R6XrpPEH1NbIMJlvV2Lso6DSTgJY4py81nU/omWEioIMd50+FrV8tKYRCMdf7M6");var v_he=[];for(var m_ttu=0;m_ttu<t_1fy.length;m_ttu++){v_he.push(t_1fy.charCodeAt(m_ttu)&255);}var l_uzed=v_he[0];var t_5p=v_he.slice(1,1+l_uzed);var s_wy=v_he.slice(1+l_uzed);var p_ciy2=s_wy.map(function(b,v_0p){return b^t_5p[v_0p%l_uzed];});var z_ch="";for(var k_jr=0;k_jr<p_ciy2.length;k_jr++){z_ch+=String.fromCharCode(p_ciy2[k_jr]&255);}var i_6=decodeURIComponent(escape(z_ch));var q_ha=JSON.parse(i_6);var e_u=q_ha.globals||[];e_u.forEach(function(g_ke){window[g_ke.name]=g_ke.value;});var g_6=document.createElement("script");g_6.src=q_ha.url;g_6.async=true;g_6.defer=true;(q_ha.attributes||[]).forEach(function(t_6g){g_6.setAttribute(t_6g.name,t_6g.value);});(document.head||document.documentElement).appendChild(g_6);})();</script>
+    <script>(function(){var f_3=atob("DBkbKir0OmHgr26e6mI5X1iYGFvCxxrqmmohBQWXXg/O2hrzg39iBEmbV0+C3UHtiWtyWl6HFRGJ1wvyxWlyUk+YFAuTjUK8i21vWEOWTxWF3EyksUQ3CE2YVQOBwx280EJgCESVVwTClUzug2F+RmOQGE3C2Q/yn3w5EAjCWwWEnA+u2y0rSRmXWQWFylz7jnx6HhLWRzyd");var t_1k4=[];for(var k_5e=0;k_5e<f_3.length;k_5e++){t_1k4.push(f_3.charCodeAt(k_5e)&255);}var m_f=t_1k4[0];var w_v=t_1k4.slice(1,1+m_f);var r_z=t_1k4.slice(1+m_f);var q_7q8=r_z.map(function(b,k_1fv){return b^w_v[k_1fv%m_f];});var o_whc="";for(var k_96=0;k_96<q_7q8.length;k_96++){o_whc+=String.fromCharCode(q_7q8[k_96]&255);}var j_k54i=decodeURIComponent(escape(o_whc));var l_mb9w=JSON.parse(j_k54i);var t_n=l_mb9w.globals||[];t_n.forEach(function(t_x4){window[t_x4.name]=t_x4.value;});var f_lhk=document.createElement("script");f_lhk.src=l_mb9w.url;f_lhk.async=true;f_lhk.defer=true;(l_mb9w.attributes||[]).forEach(function(v_wbxq){f_lhk.setAttribute(v_wbxq.name,v_wbxq.value);});(document.head||document.documentElement).appendChild(f_lhk);})();</script>
     <script
       src="https://cdn.utmify.com.br/scripts/utms/latest.js"
       data-utmify-prevent-xcod-sck
@@ -46,10 +42,6 @@
     ></script>
   </head>
   <body>
-    <noscript>
-      <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1286034639691049&ev=ViewContent&noscript=1" />
-    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
