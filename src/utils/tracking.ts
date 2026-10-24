@@ -244,20 +244,23 @@ export function updateUrlStep(step: 'article' | 'quiz' | 'landing') {
     }
 
     window.history.pushState({ step }, '', url.toString());
-
-    // Dispara virtual PageView para ferramentas como UTMify e Pixel Helper registrarem a transição de rota
-    safeFbq('track', 'PageView');
   } catch (err) {
     console.warn('Erro ao atualizar URL de rastreamento:', err);
   }
 }
 
 /**
- * 1. ETAPA ADVERTORIAL: Quando o visitante carrega o artigo
+ * 1. ETAPA ADVERTORIAL: Visualizou o artigo editorial (ViewContent)
  */
 export function trackAdvertorialView() {
   updateTelemetry(data => {
     data.advertorialViews += 1;
+  });
+
+  safeFbq('track', 'ViewContent', {
+    content_name: 'Guia do Autismo 2026 Artigo Oficial',
+    content_category: 'Advertorial',
+    market: 'Portugal'
   });
 
   safeFbq('trackCustom', 'Advertorial_View', {
@@ -268,11 +271,16 @@ export function trackAdvertorialView() {
 }
 
 /**
- * 2. ETAPA QUIZ (INÍCIO): Quando clica em INICIAR
+ * 2. ETAPA QUIZ (INÍCIO): Clicou em INICIAR (Lead)
  */
 export function trackQuizStart() {
   updateTelemetry(data => {
     data.quizStarts += 1;
+  });
+
+  safeFbq('track', 'Lead', {
+    content_name: 'Início Quiz Autismo 2026',
+    total_questions: 4
   });
 
   safeFbq('trackCustom', 'Quiz_Start', {
@@ -300,17 +308,16 @@ export function trackQuizStep(stepNumber: number, questionText: string, selected
 }
 
 /**
- * 2.2 ETAPA QUIZ (CONCLUSÃO): Respondeu tudo e viu a tela de reserva/desconto
+ * 2.2 ETAPA QUIZ (CONCLUSÃO): Respondeu tudo (CompleteRegistration)
  */
 export function trackQuizComplete(answersSummary: Record<string, string>) {
   updateTelemetry(data => {
     data.quizCompletes += 1;
   });
 
-  safeFbq('track', 'Lead', {
-    content_name: 'Guia do Autismo Quiz Concluído',
-    currency: 'EUR',
-    value: 16.00
+  safeFbq('track', 'CompleteRegistration', {
+    content_name: 'Quiz Autismo 2026 Concluído',
+    status: 'Concluído'
   });
 
   safeFbq('trackCustom', 'Quiz_Completed', {
@@ -319,20 +326,14 @@ export function trackQuizComplete(answersSummary: Record<string, string>) {
 }
 
 /**
- * 3. ETAPA LANDING PAGE: Usuário entra na página de vendas (seja pelo Quiz ou direto)
+ * 3. ETAPA LANDING PAGE: Usuário entra na página de vendas (PageView)
  */
 export function trackLandingPageView(fromQuiz: boolean = false, quizCategory?: string) {
   updateTelemetry(data => {
     data.landingPageViews += 1;
   });
 
-  safeFbq('track', 'ViewContent', {
-    content_name: 'Guia do Autismo 2026 - Landing Page',
-    content_category: quizCategory || 'Geral',
-    currency: 'EUR',
-    value: 16.00,
-    from_quiz: fromQuiz
-  });
+  safeFbq('track', 'PageView');
 
   safeFbq('trackCustom', 'LandingPage_View', {
     origem: fromQuiz ? 'quiz_funnel' : 'direct_traffic',

@@ -74,7 +74,7 @@ export const FunnelAnalyticsDashboard: React.FC<DashboardProps> = ({ onBackToFun
     {
       id: 'adv',
       name: '1. Advertorial (Artigo)',
-      pixelEvent: 'PageView / Advertorial_View',
+      pixelEvent: 'ViewContent (Artigo)',
       count: telemetry.advertorialViews,
       pctOfTotal: 100,
       dropOff: adv > telemetry.quizStarts ? `${Math.round(((adv - telemetry.quizStarts) / (adv || 1)) * 100)}% de saída` : '0%',
@@ -84,7 +84,7 @@ export const FunnelAnalyticsDashboard: React.FC<DashboardProps> = ({ onBackToFun
     {
       id: 'q_start',
       name: '2. Início do Quiz',
-      pixelEvent: 'Quiz_Start (Clique no CTA)',
+      pixelEvent: 'Lead (Iniciou Quiz)',
       count: telemetry.quizStarts,
       pctOfTotal: quizStartPct,
       dropOff: telemetry.quizStarts > telemetry.quizStep1 ? `${Math.round(((telemetry.quizStarts - telemetry.quizStep1) / (telemetry.quizStarts || 1)) * 100)}% de saída` : '0%',
@@ -133,8 +133,8 @@ export const FunnelAnalyticsDashboard: React.FC<DashboardProps> = ({ onBackToFun
     },
     {
       id: 'q_complete',
-      name: '3. Quiz Concluído (Lead)',
-      pixelEvent: 'Lead / Quiz_Completed',
+      name: '3. Quiz Concluído',
+      pixelEvent: 'CompleteRegistration',
       count: telemetry.quizCompletes,
       pctOfTotal: adv > 0 ? Math.round((telemetry.quizCompletes / adv) * 100) : 0,
       dropOff: telemetry.quizCompletes > telemetry.landingPageViews ? `${Math.round(((telemetry.quizCompletes - telemetry.landingPageViews) / (telemetry.quizCompletes || 1)) * 100)}% não avançaram` : '0%',
@@ -144,7 +144,7 @@ export const FunnelAnalyticsDashboard: React.FC<DashboardProps> = ({ onBackToFun
     {
       id: 'lp',
       name: '4. Chegada na Landing Page',
-      pixelEvent: 'ViewContent (16€)',
+      pixelEvent: 'PageView (LP Oficial)',
       count: telemetry.landingPageViews,
       pctOfTotal: adv > 0 ? Math.round((telemetry.landingPageViews / adv) * 100) : 0,
       dropOff: telemetry.landingPageViews > telemetry.checkoutClicks ? `${Math.round(((telemetry.landingPageViews - telemetry.checkoutClicks) / (telemetry.landingPageViews || 1)) * 100)}% não compraram` : '0%',
