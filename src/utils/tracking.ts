@@ -260,6 +260,10 @@ export function trackAdvertorialView() {
   safeFbq('track', 'ViewContent', {
     content_name: 'Guia do Autismo 2026 Artigo Oficial',
     content_category: 'Advertorial',
+    content_ids: ['guia-autismo-2026'],
+    content_type: 'product',
+    value: 16.00,
+    currency: 'EUR',
     market: 'Portugal'
   });
 
@@ -280,7 +284,9 @@ export function trackQuizStart() {
 
   safeFbq('track', 'Lead', {
     content_name: 'Início Quiz Autismo 2026',
-    total_questions: 4
+    total_questions: 4,
+    value: 16.00,
+    currency: 'EUR'
   });
 
   safeFbq('trackCustom', 'Quiz_Start', {
@@ -317,7 +323,9 @@ export function trackQuizComplete(answersSummary: Record<string, string>) {
 
   safeFbq('track', 'CompleteRegistration', {
     content_name: 'Quiz Autismo 2026 Concluído',
-    status: 'Concluído'
+    status: 'Concluído',
+    value: 16.00,
+    currency: 'EUR'
   });
 
   safeFbq('trackCustom', 'Quiz_Completed', {
@@ -326,7 +334,7 @@ export function trackQuizComplete(answersSummary: Record<string, string>) {
 }
 
 /**
- * 3. ETAPA LANDING PAGE: Usuário entra na página de vendas (PageView)
+ * 3. ETAPA LANDING PAGE: Usuário entra na página de vendas (PageView + ViewContent)
  */
 export function trackLandingPageView(fromQuiz: boolean = false, quizCategory?: string) {
   updateTelemetry(data => {
@@ -334,6 +342,15 @@ export function trackLandingPageView(fromQuiz: boolean = false, quizCategory?: s
   });
 
   safeFbq('track', 'PageView');
+
+  safeFbq('track', 'ViewContent', {
+    content_name: 'Guia do Autismo 2026 - Oferta Especial',
+    content_category: 'E-book Digital',
+    content_ids: ['guia-autismo-2026'],
+    content_type: 'product',
+    value: 16.00,
+    currency: 'EUR'
+  });
 
   safeFbq('trackCustom', 'LandingPage_View', {
     origem: fromQuiz ? 'quiz_funnel' : 'direct_traffic',
@@ -352,6 +369,9 @@ export function trackCheckoutInitiate(placement: 'pricing_card' | 'floating_bar'
   safeFbq('track', 'InitiateCheckout', {
     content_name: 'Guia do Autismo 2026',
     content_category: 'E-book Digital',
+    content_ids: ['guia-autismo-2026'],
+    content_type: 'product',
+    num_items: 1,
     currency: 'EUR',
     value: 16.00,
     placement: placement
